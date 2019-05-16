@@ -5,11 +5,11 @@ import os
 import json
 import argparse
 
-from analysis._goals_per_game import retrieve_goals_per_season
-from analysis._goals_per_game import calculate_adjustment_factors
-from analysis._goal_leaders import retrieve_career_leaders
-from analysis._goal_leaders import retrieve_yearly_top
-from analysis._adjust_goals import retrieve_and_adjust_goal_totals
+from adjusted_goals.goals_per_game import retrieve_goals_per_season
+from adjusted_goals.goals_per_game import calculate_adjustment_factors
+from adjusted_goals.goal_leaders import retrieve_career_leaders
+from adjusted_goals.goal_leaders import retrieve_yearly_top
+from adjusted_goals.adjust_goals import retrieve_and_adjust_goal_totals
 
 from utils import prepare_logging
 prepare_logging(log_types=['screen'])
@@ -31,15 +31,15 @@ if __name__ == '__main__':
     setup_steps = args.steps
 
     goals_per_season_path = os.path.join(
-        "analysis", "goals_per_season.json")
+        "results", "goals_per_season.json")
     goal_leaders_path = os.path.join(
-        "analysis", "career_goal_leaders.json")
+        "results", "career_goal_leaders.json")
     adjusted_goal_data_path = os.path.join(
-        "analysis", "adjusted_goal_data.json")
+        "results", "adjusted_goal_data.json")
 
     # retrieving goals per season and season adjustment factors
     if setup_steps in ['1', 'all']:
-        season_data = retrieve_goals_per_season(1917, 2017)
+        season_data = retrieve_goals_per_season(2017, 2018)
         calculate_adjustment_factors(season_data)
 
         open(goals_per_season_path, 'w').write(
